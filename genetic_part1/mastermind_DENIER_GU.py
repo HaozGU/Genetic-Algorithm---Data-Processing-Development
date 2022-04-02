@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 21 11:24:15 2022
+Created on Feb 21 2022
+Last edit on April 02 2022
 
 @author: agademer & tdrumond & ndenier & hgu
 """
@@ -132,11 +133,10 @@ class GASolver:
 
     def getBestIndividual(self):
         """ Return the best Individual of the population """
-        fitness_max=0
-        for i in self._population:
-            if (i.fitness > fitness_max):
-                fitness_max = i.fitness
-                best = i
+        # Sort the population according to the fitness value (the higher the better)
+        self._population.sort(reverse=True)
+        # Get the first element of the population, which is the best individual
+        best=self._population[0]
         return best
 
     def evolveUntil(self, max_nb_of_generations=500, threshold_fitness=12):

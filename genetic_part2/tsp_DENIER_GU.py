@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 21 11:24:15 2022
+Created on Feb 21 2022
+Last edit on April 02 2022
 
 @author: agademer & tdrumond & ndenier & hgu
 """
@@ -60,7 +61,7 @@ class GASolver:
 
         # Generate pop_size random chromosomes
         for i in range(pop_size):
-            chromosome = cm.defaultRoad(cities)
+            chromosome = possible_cities
             random.shuffle(chromosome)
             
             fitness= -cm.roadLength(cities, chromosome) # Compute the fitness of the chromosome
@@ -125,13 +126,11 @@ class GASolver:
                 # A random value is assigned to a random gene of the chromosome
                 city1 = random.randint(0,nbCities-1)
                 city2 = random.randint(0,nbCities-1)
-                #print(city1)
-                #print(i.chromosome)
                 while (city1 == city2):
                     city2 = random.randint(0,nbCities-1)
-
+                # swap two cities
                 i.chromosome[city1], i.chromosome[city2] = i.chromosome[city2], i.chromosome[city1]
-                i.fitness = -cm.roadLength(cities, new_chromosome) # The fitness is recomputed for the mutated chromosome
+                i.fitness = -cm.roadLength(cities, i.chromosome) # The fitness is recomputed for the mutated chromosome
 
         # Increment the generation count
         self.generation+=1 
@@ -144,18 +143,15 @@ class GASolver:
         for i in self._population:
             print(i.chromosome,'\t',i.fitness)
             
-
     def getBestIndividual(self):
         """ Return the best Individual of the population """
-        fitness_max=0
-        best=Individual([0],0)
-        for i in self._population:
-            if (i.fitness > fitness_max):
-                fitness_max = i.fitness
-                best = i
+        # Sort the population according to the fitness value (the higher the better)
+        self._population.sort(reverse=True)
+        # Get the first element of the population, which is the best individual
+        best=self._population[0]
         return best
 
-    def evolveUntil(self, max_nb_of_generations=500, threshold_fitness=12):
+    def evolveUntil(self, max_nb_of_generations=500, threshold_fitness=-350):
         """ Launch the evolveForOneGenerfitnessation function until one of the two condition is achieved : 
             - Max nb of generation is achieved
             - The fitness of the best Individual is greater than or equal to
@@ -169,14 +165,16 @@ class GASolver:
 
 ## MAIN PROGRAM ##
 
-solver = GASolver()
+solver = GASolver(selection_rate=0.5, mutation_rate=0.2)
 solver.resetPopulation()
 solver.showGenerationSummary()
 print()
 solver.evolveUntil()
 solver.showGenerationSummary()
-
+        
 print()
 best = solver.getBestIndividual()
-print(best)
-cm.drawCities(cities,best.chromosome)
+print(best.chromosome, best.fitness)
+#cm.drawCities(cities,best.chromosome)
+
+# The best path can vary because the starting point can be different for each population

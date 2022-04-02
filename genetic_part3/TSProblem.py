@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 18 2022
+Created on Feb 18 2022
+Last edit on April 02 2022
 
-@author: tdrumond & agademer
+@author: tdrumond & agademer & ndenier & hgu
 
 Template file for your Exercise 3 submission 
 (GA solving TSP example)

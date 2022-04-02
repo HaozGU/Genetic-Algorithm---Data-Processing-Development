@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 18 2022
+Created on Feb 18 2022
+Last edit on April 02 2022
 
-@author: tdrumond & agademer
+@author: tdrumond & agademer & ndenier & hgu
 
 Template file for your Exercise 3 submission 
 (GA solving Mastermind example)
@@ -66,7 +67,7 @@ if __name__ == '__main__':
 
     from GASolver_module import GASolver
 
-    size=6
+    size=4
     match = mm.MastermindMatch(secretSize=size)
     problem = MastermindProblem(possible_genes=list(range(len(mm.getPossibleColors()))), threshold_fitness=3*size)
     solver = GASolver(problem)
