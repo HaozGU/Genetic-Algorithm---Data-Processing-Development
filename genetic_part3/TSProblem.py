@@ -77,6 +77,7 @@ if __name__ == '__main__':
 
     from GASolver_module import GASolver
 
+    # Read the files "cities" and return a list with all cities names
     cities = cm.loadCities("cities.txt")
     problem = TSProblem(possible_genes=cm.defaultRoad(cities), threshold_fitness=-350)
     solver = GASolver(problem)
